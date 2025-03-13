@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login with Math Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background-image: url('background.jpg'); /* تعديل هنا */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            color: black;
+        }
+        .container {
+            width: 300px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+        input {
+            margin: 10px 0;
+            padding: 10px;
+            width: 90%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1> مرحبًا بك في موقعي</h1>
+
+    <div class="container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Username" required><br>
+            <input type="password" id="password" placeholder="Password" required><br>
+            <p id="mathQuestion"></p>
+            <input type="number" id="mathAnswer" placeholder="Your answer" required><br>
+            <button type="button" onclick="validateLogin()">Login</button>
+        </form>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        const generateMathQuestion = () => {
+            const num1 = Math.floor(Math.random() * 10) + 1;
+            const num2 = Math.floor(Math.random() * 10) + 1;
+            const operator = Math.random() > 0.5 ? '+' : '-';
+            const correctAnswer = operator === '+' ? num1 + num2 : num1 - num2;
+            return { question: `${num1} ${operator} ${num2}`, answer: correctAnswer };
+        };
+
+        const mathTest = generateMathQuestion();
+        document.getElementById('mathQuestion').textContent = `Solve: ${mathTest.question}`;
+
+        const validateLogin = () => {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const userAnswer = parseInt(document.getElementById('mathAnswer').value);
+            const resultDiv = document.getElementById('result');
+
+            if (username && password) {
+                if (userAnswer === mathTest.answer) {
+                    resultDiv.style.color = 'green';
+                    resultDiv.textContent = 'بابابابا عبقري الله يبارك!';
+                } else {
+                    resultDiv.style.color = 'red';
+                    resultDiv.textContent = 'غبي! حاول مرة أخرى.';
+                }
+            } else {
+                resultDiv.style.color = 'orange';
+                resultDiv.textContent = 'يرجى إدخال اسم المستخدم وكلمة المرور.';
+            }
+        };
+    </script>
+</body>
+</html>
